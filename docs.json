@@ -1,0 +1,23 @@
+{
+  "updated": "2026-07-09",
+  "documents": [
+    {
+      "title": "Project overview",
+      "description": "Introduction to St. Clair Square — vision, program, and public benefits.",
+      "approved": "2026-07-02",
+      "file": "docs/scs-project-overview.pdf"
+    },
+    {
+      "title": "Public realm and streetscape",
+      "description": "Plans for the ground plane, open space, and the Yonge & St. Clair intersection.",
+      "approved": "2026-06-24",
+      "file": "docs/scs-public-realm.pdf"
+    },
+    {
+      "title": "Community presentation",
+      "description": "Deck presented at the most recent public consultation session.",
+      "approved": "2026-06-18",
+      "file": "docs/scs-community-presentation.pdf"
+    }
+  ]
+}
