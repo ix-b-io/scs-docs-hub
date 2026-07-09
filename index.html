@@ -13,85 +13,88 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="St. Clair Sq">
-<meta name="theme-color" content="#faf7f1">
+<meta name="theme-color" content="#f2f0e1">
 
 <style>
   :root{
-    --paper:#faf7f1;
-    --ink:#21231f;
-    --green:#1f3b2c;
-    --bronze:#96702e;
-    --hairline:#ddd6c8;
-    --muted:#6f6a5e;
-    --card:#fffdf9;
+    --paper:#f2f0e1;
+    --ink:#17170f;
+    --hairline:#c9c7b0;
+    --muted:#75725f;
+    --card:#f7f5e9;
+    --red:#e06456; --yellow:#efb93f; --blue:#4fb3e0;
+    --green:#3e9b57; --purple:#b05fd3; --pink:#e85d9e;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ -webkit-text-size-adjust:100%; }
   body{
     background:var(--paper);
     color:var(--ink);
-    font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font:16px/1.55 Futura, "Century Gothic", "Avenir Next", -apple-system, Arial, sans-serif;
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
-  .wrap{ max-width:640px; margin:0 auto; padding:28px 20px 64px; }
+  .frame{
+    max-width:640px; margin:16px auto; padding:34px 24px 44px;
+    border:1px solid var(--ink);
+  }
+  @media (min-width:480px){ .frame{ margin:28px auto; padding:44px 40px 52px; } }
 
   /* header */
-  header{ padding:18px 0 26px; border-bottom:1px solid var(--hairline); }
-  .mark{ width:44px; height:44px; margin-bottom:18px; display:block; }
-  h1{
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight:400;
-    font-size:clamp(28px, 6vw, 36px);
-    letter-spacing:0.01em;
-    color:var(--green);
+  header{ padding:4px 0 30px; border-bottom:1px solid var(--hairline); }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.28em; color:var(--muted);
+    margin-bottom:22px;
   }
-  .subline{ margin-top:6px; color:var(--muted); font-size:15px; }
-  .updated{ margin-top:14px; font-size:13px; color:var(--muted); }
+  h1{
+    font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-weight:400;
+    font-size:clamp(46px, 13vw, 72px);
+    line-height:0.98;
+    letter-spacing:0.005em;
+  }
+  .subline{ margin-top:18px; color:var(--muted); font-size:14px; }
+  .notice{ margin-top:5px; font-size:14px; color:var(--red); }
+  .updated{ margin-top:14px; font-size:12px; letter-spacing:0.08em; color:var(--muted); }
   .updated b{ font-weight:600; color:var(--ink); }
 
   /* document list */
-  main{ padding-top:8px; }
-  .doc{
-    padding:22px 0 20px;
-    border-bottom:1px solid var(--hairline);
-  }
+  main{ padding-top:4px; }
+  .doc{ padding:26px 0 24px; border-bottom:1px solid var(--hairline); }
+  .chip{ width:30px; height:10px; margin-bottom:14px; }
   .doc h2{
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight:400;
-    font-size:21px;
-    line-height:1.3;
+    font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-weight:400; font-size:27px; line-height:1.12;
   }
   .doc h2 a{ color:var(--ink); text-decoration:none; }
-  .doc h2 a:hover{ color:var(--green); }
-  .desc{ margin-top:6px; color:var(--muted); font-size:15px; }
+  .desc{ margin-top:8px; color:var(--muted); font-size:14.5px; }
   .approved{
-    display:inline-flex; align-items:center; gap:7px;
-    margin-top:10px; font-size:13px; color:var(--bronze);
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:12px; font-size:12px; letter-spacing:0.1em; color:var(--ink);
   }
   .approved::before{
-    content:""; width:7px; height:7px; border-radius:50%;
-    background:var(--bronze); flex:none;
+    content:""; width:8px; height:8px; flex:none;
+    background:var(--dot, var(--ink));
   }
-  .actions{ margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .actions{ margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; }
   .btn{
-    appearance:none; border:1px solid var(--hairline); background:var(--card);
-    color:var(--ink); border-radius:8px; padding:9px 14px;
-    font:inherit; font-size:14px; cursor:pointer;
-    text-decoration:none; display:inline-flex; align-items:center; gap:6px;
-    transition:border-color .15s ease, background .15s ease;
+    appearance:none; border:1px solid var(--ink); background:transparent;
+    color:var(--ink); border-radius:0; padding:10px 15px;
+    font:inherit; font-size:13.5px; letter-spacing:0.04em; cursor:pointer;
+    text-decoration:none; display:inline-flex; align-items:center;
+    transition:background .15s ease, color .15s ease;
   }
-  .btn:hover{ border-color:var(--green); }
-  .btn:focus-visible{ outline:2px solid var(--green); outline-offset:2px; }
-  .btn.primary{ background:var(--green); border-color:var(--green); color:var(--paper); }
-  .btn.primary:hover{ background:#254735; }
-  .btn.copied{ border-color:var(--bronze); color:var(--bronze); }
+  .btn:hover{ background:var(--ink); color:var(--paper); }
+  .btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+  .btn.primary{ background:var(--ink); color:var(--paper); }
+  .btn.primary:hover{ opacity:0.85; }
+  .btn.copied{ background:var(--green); border-color:var(--green); color:var(--paper); }
 
   /* states */
   .state{ padding:40px 0; color:var(--muted); font-size:15px; }
   .state b{ color:var(--ink); font-weight:600; }
 
-  footer{ padding-top:26px; font-size:13px; color:var(--muted); }
-  footer p + p{ margin-top:6px; }
+  footer{ padding-top:26px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  footer p + p{ margin-top:7px; }
 
   @media (prefers-reduced-motion: reduce){
     *{ transition:none !important; }
@@ -99,17 +102,13 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="frame">
 
   <header>
-    <svg class="mark" viewBox="0 0 44 44" role="img" aria-label="St. Clair Square mark">
-      <line x1="19" y1="6" x2="19" y2="38" stroke="#1f3b2c" stroke-width="1.4"/>
-      <line x1="6" y1="25" x2="38" y2="25" stroke="#1f3b2c" stroke-width="1.4"/>
-      <circle cx="19" cy="25" r="3" fill="#96702e"/>
-    </svg>
-    <h1>St. Clair Square</h1>
+    <p class="eyebrow">Yonge · Heath · Alvin · St.Clair</p>
+    <h1>St.Clair<br>Square</h1>
     <p class="subline">Approved documents, cleared for public discussion</p>
-    <p class="subline" style="margin-top:4px; color:#96702e;">Prototype — contents are test material for internal review, not yet for circulation</p>
+    <p class="notice">Prototype — contents are test material for internal review, not yet for circulation</p>
     <p class="updated" id="updated" hidden></p>
   </header>
 
@@ -184,8 +183,12 @@ Best regards`;
       const url = absUrl(doc.file);
       const art = document.createElement('article');
       art.className = 'doc';
+      const palette = ['var(--red)','var(--yellow)','var(--blue)','var(--green)','var(--purple)','var(--pink)'];
+      const accent = palette[list.children.length % palette.length];
+      art.style.setProperty('--dot', accent);
 
       art.innerHTML =
+        '<div class="chip" style="background:' + accent + '"></div>' +
         '<h2><a href="' + url + '" target="_blank" rel="noopener"></a></h2>' +
         (doc.description ? '<p class="desc"></p>' : '') +
         (doc.approved ? '<p class="approved">Approved ' + fmt(doc.approved) + '</p>' : '') +
