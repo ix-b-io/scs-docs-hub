@@ -59,35 +59,46 @@
 
   /* document list */
   main{ padding-top:4px; }
-  .doc{ padding:26px 0 24px; border-bottom:1px solid var(--hairline); }
+  .doc{ border-bottom:1px solid var(--hairline); }
+  .cardlink{
+    display:block; text-decoration:none; color:inherit;
+    padding:26px 0 6px; position:relative;
+  }
+  .cardlink:focus-visible{ outline:2px solid var(--ink); outline-offset:4px; }
   .chip{ width:30px; height:10px; margin-bottom:14px; }
   .doc h2{
     font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
-    font-weight:400; font-size:27px; line-height:1.12;
+    font-weight:400; font-size:28px; line-height:1.12;
+    padding-right:34px;
   }
-  .doc h2 a{ color:var(--ink); text-decoration:none; }
-  .desc{ margin-top:8px; color:var(--muted); font-size:14.5px; }
-  .approved{
-    display:inline-flex; align-items:center; gap:8px;
-    margin-top:12px; font-size:12px; letter-spacing:0.1em; color:var(--ink);
+  .cardlink::after{
+    content:""; position:absolute; right:2px; top:50%;
+    width:11px; height:11px; margin-top:-8px;
+    border-top:1.5px solid var(--ink); border-right:1.5px solid var(--ink);
+    transform:rotate(45deg);
+    transition:transform .15s ease;
   }
-  .approved::before{
-    content:""; width:8px; height:8px; flex:none;
+  .cardlink:hover::after{ transform:rotate(45deg) translate(2px,-2px); }
+  .cardlink:hover h2{ text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
+  .desc{ margin-top:7px; color:var(--muted); font-size:14px; max-width:46ch; }
+  .meta{
+    margin-top:10px; font-size:11px; letter-spacing:0.14em; color:var(--muted);
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .meta::before{
+    content:""; width:7px; height:7px; flex:none;
     background:var(--dot, var(--ink));
   }
-  .actions{ margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; }
-  .btn{
-    appearance:none; border:1px solid var(--ink); background:transparent;
-    color:var(--ink); border-radius:0; padding:10px 15px;
-    font:inherit; font-size:13.5px; letter-spacing:0.04em; cursor:pointer;
-    text-decoration:none; display:inline-flex; align-items:center;
-    transition:background .15s ease, color .15s ease;
+  .actions{ display:flex; gap:20px; padding:8px 0 22px; }
+  .actions .btn{
+    appearance:none; border:none; background:none; color:var(--muted);
+    font:inherit; font-size:12.5px; letter-spacing:0.05em; cursor:pointer;
+    padding:6px 0; text-decoration:none;
+    border-bottom:1px solid transparent;
   }
-  .btn:hover{ background:var(--ink); color:var(--paper); }
-  .btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
-  .btn.primary{ background:var(--ink); color:var(--paper); }
-  .btn.primary:hover{ opacity:0.85; }
-  .btn.copied{ background:var(--green); border-color:var(--green); color:var(--paper); }
+  .actions .btn:hover{ color:var(--ink); border-bottom-color:var(--ink); }
+  .actions .btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+  .actions .btn.copied{ color:var(--green); border-bottom-color:var(--green); }
 
   /* states */
   .state{ padding:40px 0; color:var(--muted); font-size:15px; }
@@ -187,27 +198,29 @@ Best regards`;
       const accent = palette[list.children.length % palette.length];
       art.style.setProperty('--dot', accent);
 
+      const viewerUrl = 'viewer.html?file=' + encodeURIComponent(doc.file);
       art.innerHTML =
-        '<div class="chip" style="background:' + accent + '"></div>' +
-        '<h2><a href="' + url + '" target="_blank" rel="noopener"></a></h2>' +
-        (doc.description ? '<p class="desc"></p>' : '') +
-        (doc.approved ? '<p class="approved">Approved ' + fmt(doc.approved) + '</p>' : '') +
+        '<a class="cardlink" href="' + viewerUrl + '">' +
+          '<div class="chip" style="background:' + accent + '"></div>' +
+          '<h2></h2>' +
+          (doc.description ? '<p class="desc"></p>' : '') +
+          (doc.approved ? '<p class="meta">Approved ' + fmt(doc.approved) + '</p>' : '') +
+        '</a>' +
         '<div class="actions">' +
-          '<a class="btn primary" href="' + url + '" target="_blank" rel="noopener">Open document</a>' +
           (navigator.share ? '<button class="btn share" type="button">Share</button>' : '') +
           '<button class="btn copy" type="button">Copy link</button>' +
           '<a class="btn" href="' + emailHref(doc, url) + '">Email</a>' +
         '</div>';
 
-      art.querySelector('h2 a').textContent = doc.title;
+      art.querySelector('h2').textContent = doc.title;
       if(doc.description) art.querySelector('.desc').textContent = doc.description;
 
       const shareBtn = art.querySelector('.share');
       if(shareBtn){
         shareBtn.addEventListener('click', () => {
           navigator.share({
-            title: 'St. Clair Square — ' + doc.title,
-            text: 'Current approved "' + doc.title + '" for St. Clair Square',
+            title: 'St.Clair Square — ' + doc.title,
+            text: 'Current approved "' + doc.title + '" for St.Clair Square',
             url: url
           }).catch(() => {});
         });
