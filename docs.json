@@ -6,6 +6,12 @@
       "description": "A quick overview of the St. Clair Square project.",
       "approved": "2026-07-02",
       "file": "docs/scs-general-presentation-short.pdf"
+    },
+    {
+      "title": "Marketing fact book — working draft",
+      "description": "Early version of the marketing fact system summary, loaded for prototype review.",
+      "approved": "2026-07-06",
+      "file": "docs/scs-marketing-fact-book-draft.pdf"
     }
   ]
 }
