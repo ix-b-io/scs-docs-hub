@@ -1,92 +1,88 @@
-# St. Clair Square — approved documents hub
+# St. Clair Square — documents hub
 
-A single-page app that gives the team (and the public) one permanent home for the
-current approved St. Clair Square documents. Hosted free on GitHub Pages. Installs
-to iPhone and iPad home screens as a full-screen app; works as a normal page on
-laptops.
+One permanent link for the current St. Clair Square documents, shared with the
+team and (when cleared) the public. A single static page on GitHub Pages;
+documents render natively in the browser. Nothing to maintain, nothing to pay for.
 
-**The core rule that makes links permanent:** every PDF keeps its filename forever.
-When a document is revised and re-approved, you replace the file at the same path.
-Every link ever emailed, texted, or bookmarked keeps working and always shows the
-latest approved version.
+Live at: **https://ix-b-io.github.io/scs-docs-hub/**
+
+**The rule that makes links permanent:** every PDF keeps its filename forever.
+To update a document, replace the file at the same path. Every link ever sent
+keeps working and always shows the latest version. The version history lives
+in git.
 
 ## Contents
 
 ```
-index.html      the app (single file, no dependencies)
-docs.json       the document list — edit this to add/change entries
-manifest.json   PWA manifest (home-screen install)
-assets/         app icons
-docs/           the PDFs themselves (currently sample placeholders)
+index.html      the page (single file, no dependencies)
+docs.json       the document list — edit this to add or change entries
+sw.js           offline support: caches the page and all listed PDFs on first visit
+robots.txt      keeps search engines away (prototype phase — remove at go-live)
+assets/         header artwork and the home-screen icon
+docs/           the PDFs themselves
 ```
 
-## One-time setup (10 minutes)
+There is deliberately **no web app manifest**. As of iOS 26, app-vs-bookmark
+behavior is decided by the user's "Open as Web App" toggle at install time —
+site code has no say — so the stack carries nothing app-related.
 
-1. Create a repo under the Yar-Project org, e.g. `scs-docs-hub`. **It must be
-   public** for free GitHub Pages — fine here, since these files are approved for
-   public discussion. (Private repos need GitHub Pro/Team for Pages.)
-2. Push this folder's contents to the repo root on `main`.
-3. Repo → Settings → Pages → Source: **Deploy from a branch** → `main` / root → Save.
-4. After a minute the app is live at
-   `https://yar-project.github.io/scs-docs-hub/`
-5. Optional, recommended for public-facing polish: point a subdomain like
-   `docs.stclairsquare.com` at it (Settings → Pages → Custom domain, plus one
-   CNAME record at the registrar). All links below then use that domain.
+## Team install instructions (copy-paste)
+
+> St. Clair Square documents — one link, always current:
+> https://ix-b-io.github.io/scs-docs-hub/
+> To put it on your phone: open the link in **Safari** → Share →
+> **Add to Home Screen** → **switch OFF "Open as Web App"** → Add.
+> Tap any document title to open it. Links you copy or email always show the
+> latest version.
+
+The toggle step matters: left on (the iOS 26 default), the icon opens an
+app-style window without browser controls. Switched off, it is a true Safari
+bookmark. The custom icon appears either way.
 
 ## Publishing or updating a document
 
-1. Name the PDF once, stably and generically: `scs-project-overview.pdf`,
-   not `SCS_Overview_v3_FINAL.pdf`. The version lives in git, not the filename.
-2. Drop it into `docs/` (replacing the old file if it's an update) and commit.
-3. If it's a **new** document, add an entry to `docs.json`:
+1. Name new PDFs once, stably and generically: `scs-topic-name.pdf`.
+   The version lives in git, not the filename.
+2. Optimize before upload — screen-resolution exports only. Print-resolution
+   files (100MB+) are slow everywhere and GitHub rejects files over 100MB.
+3. Drop the file into `docs/` (replacing the old one if it's an update), and
+   for new documents add an entry to `docs.json`:
 
 ```json
 {
-  "title": "Project overview",
+  "title": "Document title",
   "description": "One line on what this is.",
-  "approved": "2026-07-02",
-  "file": "docs/scs-project-overview.pdf"
+  "uploaded": "2026-07-09",
+  "file": "docs/scs-topic-name.pdf"
 }
 ```
 
-4. If it's an **update**, just bump the `approved` date and the top-level
-   `updated` date. Done — the link never changed.
+4. For updates, replace the file and bump the `uploaded` date. Done.
 
-Entries can also point at any external URL (`"file": "https://…"`), e.g. a
-DocSend/Papermark link if a specific document later needs tracking.
+**Timing rule:** caches can serve the previous file for up to ~10 minutes after
+a push. Never update a document within 15 minutes of it being presented.
 
-Git gives you the audit trail for free: every superseded version of every PDF is
-recoverable from history, with a timestamp of exactly when it was replaced.
+## Offline behavior
 
-## Getting it onto the team's phones (30 seconds each)
+Opening the page once quietly caches it and every listed PDF on the device.
+Online, every open fetches the live version (no one can be served a stale file
+while connected); offline, the last-seen copy serves instantly. Safari purges
+these caches for anyone who hasn't visited in ~7 days — their next open needs
+a connection. Team habit before travel or important meetings: open the page
+once on wifi.
 
-Send this to the team:
+## Go-live checklist (before public circulation)
 
-> 1. Open `https://yar-project.github.io/scs-docs-hub/` in **Safari**
-> 2. Tap the Share button (square with the up arrow)
-> 3. Tap **Add to Home Screen**, then **Add**
+- Replace/confirm all documents are cleared versions
+- Remove `robots.txt` and the `noindex` meta in `index.html`
+- Consider the custom domain (one CNAME + Pages settings field); it also makes
+  links survive any future repo transfer
+- Keep only public-approved material in this repo — it is world-readable,
+  including its git history
 
-A St. Clair Square icon appears on the home screen and opens full-screen, no
-browser bars. On laptops, the same URL is just a bookmark. A QR code of the URL
-on one slide at the next team meeting gets everyone installed at once.
+## Security
 
-## Sharing documents by email
-
-Each document has four actions in the app:
-
-- **Open document** — views the PDF (opens with a Done button inside the
-  home-screen app on iOS)
-- **Share** — the native iOS/iPadOS share sheet: Mail, Messages, AirDrop, Slack…
-- **Copy link** — copies the permanent URL
-- **Email** — opens a pre-drafted email with the subject, the link, the approval
-  date, and a note that the link always shows the latest approved version
-
-No sign-in is ever required to view anything — the PDFs are served as plain
-public files.
-
-## Notes
-
-- iOS home-screen apps cache aggressively; `docs.json` is fetched with a
-  cache-buster on every open, so the list is always current.
-- Keep only public-approved material in this repo. Anything internal stays in
-  Drive/private repos — this hub is world-readable by design.
+Read access is public by design. Write access is the whole game: it is
+controlled by the GitHub accounts with push rights to this repo (keep 2FA on).
+There is no server, no database, and no code that executes anywhere except
+this static page in the visitor's browser.
