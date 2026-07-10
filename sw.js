@@ -1,7 +1,7 @@
-const VERSION = 'scs-v17';
+const VERSION = 'scs-v18';
 const SHELL = [
   './', 'index.html', 'docs.json',
-  'assets/icon-192-v5.png', 'assets/header-mark.png', 'assets/icon-512-v5.png', 'assets/apple-touch-icon-v5.png'
+  'assets/header-mark.png', 'assets/apple-touch-icon-v5.png'
 ];
 
 self.addEventListener('install', e => {
