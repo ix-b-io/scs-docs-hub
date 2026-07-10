@@ -64,6 +64,10 @@
     font-weight:500; font-size:22px; line-height:1.25;
     padding-right:34px;
   }
+  .subtitle{
+    display:block; font-weight:400; font-size:16px; line-height:1.3;
+    margin-top:1px; color:var(--titlegreen);
+  }
   .cardlink::after{
     content:""; position:absolute; right:2px; top:32px;
     width:11px; height:11px;
@@ -138,11 +142,12 @@
     : new URL(file, location.href).href;
 
   function emailHref(doc, url){
-    const subject = `St. Clair Square — ${doc.title}`;
+    const fullName = doc.title + (doc.subtitle ? ' — ' + doc.subtitle : '');
+    const subject = `St. Clair Square — ${fullName}`;
     const body =
 `Hello,
 
-Here is the current "${doc.title}" for St. Clair Square (${fmt(doc.uploaded)}):
+Here is the current "${fullName}" for St. Clair Square (${fmt(doc.uploaded)}):
 
 ${url}
 
@@ -194,15 +199,22 @@ Best regards`;
           '</div>' +
         '</div>';
 
-      art.querySelector('h2').textContent = doc.title;
+      const h2a = art.querySelector('h2 a') || art.querySelector('h2');
+      h2a.textContent = doc.title;
+      if(doc.subtitle){
+        const s = document.createElement('span');
+        s.className = 'subtitle';
+        s.textContent = doc.subtitle;
+        h2a.appendChild(s);
+      }
       if(doc.description) art.querySelector('.desc').textContent = doc.description;
 
       const shareBtn = art.querySelector('.share');
       if(shareBtn){
         shareBtn.addEventListener('click', () => {
           navigator.share({
-            title: 'St.Clair Square — ' + doc.title,
-            text: 'Current approved "' + doc.title + '" for St.Clair Square',
+            title: 'St.Clair Square — ' + doc.title + (doc.subtitle ? ' — ' + doc.subtitle : ''),
+            text: 'Current approved "' + doc.title + (doc.subtitle ? ' — ' + doc.subtitle : '') + '" for St.Clair Square',
             url: url
           }).catch(() => {});
         });
