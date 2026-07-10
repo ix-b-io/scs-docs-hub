@@ -1,11 +1,19 @@
-const VERSION = 'scs-v13';
+const VERSION = 'scs-v14';
 const SHELL = [
   './', 'index.html', 'docs.json',
   'assets/icon-192-v3.png', 'assets/header-mark.png', 'assets/icon-512-v3.png', 'assets/apple-touch-icon-v3.png'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(VERSION)
+      .then(c => c.addAll(SHELL)
+        .then(() => fetch('docs.json').then(r => r.json()))
+        .then(d => c.addAll((d.documents || []).map(x => x.file).filter(f => !/^https?:/.test(f))))
+        .catch(() => {}) // document precache is best-effort; shell must still install
+      )
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -22,8 +30,16 @@ self.addEventListener('fetch', e => {
   if(e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if(url.origin !== location.origin) return;
-  // range requests (PDF streaming) bypass the cache layer entirely
-  if(e.request.headers.has('range')) return;
+  // range requests: network when online; offline, serve the full cached file
+  // (clients accept a 200 full-body response to a ranged request per spec)
+  if(e.request.headers.has('range')){
+    e.respondWith(
+      fetch(e.request).catch(() =>
+        caches.match(e.request.url).then(hit => hit || Response.error())
+      )
+    );
+    return;
+  }
 
   e.respondWith(
     fetch(e.request).then(res => {
