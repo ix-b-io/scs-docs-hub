@@ -40,21 +40,21 @@
   /* header */
   header{ padding:0 0 22px; border-bottom:1px solid var(--hairline); }
   .banner{
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
   }
   h1{
     font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
     font-weight:400;
-    font-size:clamp(42px, 11.5vw, 68px);
+    font-size:clamp(50px, 15vw, 92px);
     line-height:0.98;
     letter-spacing:0.005em;
   }
   .mark{
     flex:none;
-    width:clamp(88px, 24vw, 128px); height:auto;
+    width:clamp(76px, 20vw, 112px); height:auto;
+    margin-top:6px;
   }
   .subline{ margin-top:12px; color:var(--muted); font-size:14px; }
-  .notice{ margin-top:5px; font-size:14px; color:var(--red); }
   .updated{ margin-top:10px; font-size:12px; letter-spacing:0.08em; color:var(--muted); }
   .updated b{ font-weight:600; color:var(--ink); }
 
@@ -100,7 +100,7 @@
   .state{ padding:40px 0; color:var(--muted); font-size:15px; }
   .state b{ color:var(--ink); font-weight:600; }
 
-  footer{ padding-top:20px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  footer{ padding-top:20px; font-size:12px; font-weight:300; line-height:1.6; color:#8a8776; }
   footer p + p{ margin-top:7px; }
 
   @media (prefers-reduced-motion: reduce){
@@ -117,7 +117,6 @@
       <img class="mark" src="assets/header-mark.png" alt="" width="110" height="110">
     </div>
     <p class="subline">Approved documents, cleared for public discussion</p>
-    <p class="notice">Prototype — contents are test material for internal review, not yet for circulation</p>
     <p class="updated" id="updated" hidden></p>
   </header>
 
