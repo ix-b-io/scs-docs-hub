@@ -53,8 +53,6 @@
     width:clamp(96px, 25vw, 136px); height:auto;
   }
   .subline{ margin-top:12px; color:var(--muted); font-size:14px; }
-  .updated{ margin-top:10px; font-size:11px; letter-spacing:0.08em; color:var(--muted); }
-  .updated b{ font-weight:400; color:var(--muted); }
 
   /* document list */
   main{ padding-top:4px; }
@@ -115,7 +113,6 @@
       <img class="mark" src="assets/header-mark.png" alt="" width="110" height="110">
     </div>
     <p class="subline">Approved documents, cleared for public discussion</p>
-    <p class="updated" id="updated" hidden></p>
   </header>
 
   <main id="list" aria-live="polite">
@@ -131,7 +128,6 @@
 <script>
 (function(){
   const list = document.getElementById('list');
-  const updated = document.getElementById('updated');
 
   const fmt = iso => {
     if(!iso) return '';
@@ -148,7 +144,7 @@
     const body =
 `Hello,
 
-Here is the current approved "${doc.title}" for St. Clair Square (approved ${fmt(doc.approved)}):
+Here is the current "${doc.title}" for St. Clair Square (${fmt(doc.uploaded)}):
 
 ${url}
 
@@ -175,10 +171,6 @@ Best regards`;
   }
 
   function render(data){
-    if(data.updated){
-      updated.innerHTML = 'Last updated <b>' + fmt(data.updated) + '</b>';
-      updated.hidden = false;
-    }
     if(!data.documents || !data.documents.length){
       list.innerHTML = '<p class="state"><b>No documents published yet.</b> Approved files will appear here.</p>';
       return;
@@ -194,7 +186,7 @@ Best regards`;
         '<a class="cardlink" href="' + url + '" target="_blank" rel="noopener">' +
           '<h2></h2>' +
           (doc.description ? '<p class="desc"></p>' : '') +
-          (doc.approved ? '<p class="meta">Approved ' + fmt(doc.approved) + '</p>' : '') +
+          (doc.uploaded ? '<p class="meta">' + fmt(doc.uploaded) + '</p>' : '') +
         '</a>' +
         '<div class="actions">' +
           (navigator.share ? '<button class="btn share" type="button">Share</button>' : '') +
