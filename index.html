@@ -40,7 +40,7 @@
   /* header */
   header{ padding:0 0 22px; border-bottom:1px solid var(--hairline); }
   .banner{
-    display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
   }
   h1{
     font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
@@ -51,12 +51,11 @@
   }
   .mark{
     flex:none;
-    width:clamp(76px, 20vw, 112px); height:auto;
-    margin-top:6px;
+    width:clamp(96px, 25vw, 136px); height:auto;
   }
   .subline{ margin-top:12px; color:var(--muted); font-size:14px; }
-  .updated{ margin-top:10px; font-size:12px; letter-spacing:0.08em; color:var(--muted); }
-  .updated b{ font-weight:600; color:var(--ink); }
+  .updated{ margin-top:10px; font-size:11px; letter-spacing:0.08em; color:var(--muted); }
+  .updated b{ font-weight:400; color:var(--muted); }
 
   /* document list */
   main{ padding-top:4px; }
@@ -80,7 +79,7 @@
   }
   .cardlink:hover::after{ transform:rotate(45deg) translate(2px,-2px); }
   .cardlink:hover h2{ text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
-  .desc{ margin-top:5px; color:var(--muted); font-size:14px; max-width:46ch; }
+  .desc{ margin-top:5px; color:var(--muted); font-size:13.5px; line-height:1.35; max-width:46ch; }
   .meta{
     margin-top:8px; font-size:11px; letter-spacing:0.14em; color:var(--muted);
     display:block;
