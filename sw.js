@@ -1,7 +1,6 @@
-const VERSION = 'scs-v1';
+const VERSION = 'scs-v2';
 const SHELL = [
-  './', 'index.html', 'viewer.html', 'docs.json', 'manifest.json',
-  'vendor/pdfjs/pdf.min.js', 'vendor/pdfjs/pdf.worker.min.js',
+  './', 'index.html', 'docs.json', 'manifest.json',
   'assets/icon-192.png', 'assets/icon-512.png', 'assets/apple-touch-icon.png'
 ];
 

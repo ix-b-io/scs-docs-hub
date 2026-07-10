@@ -198,9 +198,9 @@ Best regards`;
       const accent = palette[list.children.length % palette.length];
       art.style.setProperty('--dot', accent);
 
-      const viewerUrl = 'viewer.html?file=' + encodeURIComponent(doc.file);
+      
       art.innerHTML =
-        '<a class="cardlink" href="' + viewerUrl + '">' +
+        '<a class="cardlink" href="' + url + '" target="_blank" rel="noopener">' +
           '<div class="chip" style="background:' + accent + '"></div>' +
           '<h2></h2>' +
           (doc.description ? '<p class="desc"></p>' : '') +
