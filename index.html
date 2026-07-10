@@ -32,17 +32,13 @@
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
   .frame{
-    max-width:640px; margin:16px auto; padding:34px 24px 44px;
+    max-width:640px; margin:14px auto; padding:26px 20px 34px;
     border:1px solid var(--ink);
   }
-  @media (min-width:480px){ .frame{ margin:28px auto; padding:44px 40px 52px; } }
+  @media (min-width:480px){ .frame{ margin:24px auto; padding:36px 40px 44px; } }
 
   /* header */
-  header{ padding:4px 0 30px; border-bottom:1px solid var(--hairline); }
-  .eyebrow{
-    font-size:12px; letter-spacing:0.28em; color:var(--muted);
-    margin-bottom:22px;
-  }
+  header{ padding:0 0 22px; border-bottom:1px solid var(--hairline); }
   h1{
     font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
     font-weight:400;
@@ -50,9 +46,9 @@
     line-height:0.98;
     letter-spacing:0.005em;
   }
-  .subline{ margin-top:18px; color:var(--muted); font-size:14px; }
+  .subline{ margin-top:12px; color:var(--muted); font-size:14px; }
   .notice{ margin-top:5px; font-size:14px; color:var(--red); }
-  .updated{ margin-top:14px; font-size:12px; letter-spacing:0.08em; color:var(--muted); }
+  .updated{ margin-top:10px; font-size:12px; letter-spacing:0.08em; color:var(--muted); }
   .updated b{ font-weight:600; color:var(--ink); }
 
   /* document list */
@@ -60,10 +56,9 @@
   .doc{ border-bottom:1px solid var(--hairline); }
   .cardlink{
     display:block; text-decoration:none; color:inherit;
-    padding:26px 0 6px; position:relative;
+    padding:20px 0 4px; position:relative;
   }
   .cardlink:focus-visible{ outline:2px solid var(--ink); outline-offset:4px; }
-  .chip{ width:30px; height:10px; margin-bottom:14px; }
   .doc h2{
     font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
     font-weight:400; font-size:28px; line-height:1.12;
@@ -78,16 +73,12 @@
   }
   .cardlink:hover::after{ transform:rotate(45deg) translate(2px,-2px); }
   .cardlink:hover h2{ text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; }
-  .desc{ margin-top:7px; color:var(--muted); font-size:14px; max-width:46ch; }
+  .desc{ margin-top:5px; color:var(--muted); font-size:14px; max-width:46ch; }
   .meta{
-    margin-top:10px; font-size:11px; letter-spacing:0.14em; color:var(--muted);
-    display:inline-flex; align-items:center; gap:7px;
+    margin-top:8px; font-size:11px; letter-spacing:0.14em; color:var(--muted);
+    display:block;
   }
-  .meta::before{
-    content:""; width:7px; height:7px; flex:none;
-    background:var(--dot, var(--ink));
-  }
-  .actions{ display:flex; gap:20px; padding:8px 0 22px; }
+  .actions{ display:flex; gap:18px; padding:5px 0 16px; }
   .actions .btn{
     appearance:none; border:none; background:none; color:var(--muted);
     font:inherit; font-size:12.5px; letter-spacing:0.05em; cursor:pointer;
@@ -102,7 +93,7 @@
   .state{ padding:40px 0; color:var(--muted); font-size:15px; }
   .state b{ color:var(--ink); font-weight:600; }
 
-  footer{ padding-top:26px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  footer{ padding-top:20px; font-size:12.5px; line-height:1.6; color:var(--muted); }
   footer p + p{ margin-top:7px; }
 
   @media (prefers-reduced-motion: reduce){
@@ -114,7 +105,6 @@
 <div class="frame">
 
   <header>
-    <p class="eyebrow">Yonge · Heath · Alvin · St.Clair</p>
     <h1>St.Clair<br>Square</h1>
     <p class="subline">Approved documents, cleared for public discussion</p>
     <p class="notice">Prototype — contents are test material for internal review, not yet for circulation</p>
@@ -192,14 +182,10 @@ Best regards`;
       const url = absUrl(doc.file);
       const art = document.createElement('article');
       art.className = 'doc';
-      const palette = ['var(--red)','var(--yellow)','var(--blue)','var(--green)','var(--purple)','var(--pink)'];
-      const accent = palette[list.children.length % palette.length];
-      art.style.setProperty('--dot', accent);
 
       
       art.innerHTML =
         '<a class="cardlink" href="' + url + '" target="_blank" rel="noopener">' +
-          '<div class="chip" style="background:' + accent + '"></div>' +
           '<h2></h2>' +
           (doc.description ? '<p class="desc"></p>' : '') +
           (doc.approved ? '<p class="meta">Approved ' + fmt(doc.approved) + '</p>' : '') +
