@@ -38,16 +38,10 @@
   .banner{
     display:flex; align-items:center; justify-content:space-between; gap:14px;
   }
-  h1{
-    font-family:"Bodoni 72", Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
-    font-weight:400;
-    font-size:clamp(50px, 15vw, 92px);
-    line-height:0.98;
-    letter-spacing:0.005em;
-  }
-  .mark{
-    flex:none;
-    width:clamp(96px, 25vw, 136px); height:auto;
+  h1{ line-height:0; }
+  .wordmark{
+    display:block;
+    width:clamp(215px, 62vw, 330px); height:auto;
   }
   .subline{ margin-top:10px; color:#8a8776; font-size:12.5px; letter-spacing:0.06em; }
 
@@ -111,8 +105,7 @@
 
   <header>
     <div class="banner">
-      <h1>St.Clair<br>Square</h1>
-      <img class="mark" src="assets/header-mark.png" alt="" width="110" height="110">
+      <h1><img class="wordmark" src="assets/wordmark.svg" alt="St.Clair Square" width="198" height="133"></h1>
     </div>
     <p class="subline">Approved documents, cleared for public discussion</p>
   </header>
