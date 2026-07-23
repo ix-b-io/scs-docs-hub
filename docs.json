@@ -2,17 +2,16 @@
   "documents": [
     {
       "title": "General presentation",
-      "description": "A quick overview of the St. Clair Square project.",
+      "description": "An introduction to St Clair Square",
       "file": "docs/scs-general-presentation-short.pdf",
       "uploaded": "2026-07-23",
       "subtitle": "short format"
     },
     {
       "title": "Marketing fact book",
-      "description": "Early version of the marketing fact system summary, loaded for prototype review.",
+      "description": "General facts and figures",
       "file": "docs/scs-marketing-fact-book-draft.pdf",
-      "uploaded": "2026-07-09",
-      "subtitle": "working draft"
+      "uploaded": "2026-07-09"
     }
   ]
 }
