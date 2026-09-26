@@ -1,4 +1,4 @@
-const VERSION = 'scs-v23';
+const VERSION = 'scs-v24';
 const SHELL = [
   './', 'index.html', 'docs.json',
   'assets/wordmark.svg', 'assets/apple-touch-icon-v5.png'
