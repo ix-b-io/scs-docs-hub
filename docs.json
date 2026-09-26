@@ -1,18 +1,16 @@
 {
   "documents": [
     {
-      "title": "General presentation",
+      "title": "St Clair Square_GP_Short_260926",
       "description": "An introduction to St Clair Square",
       "file": "docs/scs-general-presentation-short.pdf",
-      "uploaded": "2026-09-26",
-      "subtitle": "short format"
+      "uploaded": "2026-09-26"
     },
     {
-      "title": "General presentation",
+      "title": "St Clair Square_GP_Long_260926",
       "description": "The full presentation of St Clair Square",
       "file": "docs/scs-general-presentation-long.pdf",
-      "uploaded": "2026-09-26",
-      "subtitle": "long format"
+      "uploaded": "2026-09-26"
     },
     {
       "title": "Marketing fact book",
